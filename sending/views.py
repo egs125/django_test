@@ -6,8 +6,12 @@ from .serializers import UserSerializer
 
 # Create your views here.
 def index(request):
-  context = {'test': '테스트 문구 나왔당'}
+  totalUsers = User.objects.all()
+  serializer = UserSerializer(totalUsers, many=True)
+  context = {'test': '테스트 문구 나왔당', "users": totalUsers}
+  
   return render(request, 'sending/index.html', context)
+
 
 @api_view(['GET'])
 def users(request):
